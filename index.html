@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Mother's Day 💐</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=0001160901" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -236,14 +236,14 @@
 
     h1 {
       font-family:'Playfair Display',serif;
-      font-size: clamp(3rem,11vw,5.2rem);
-      font-weight:900; line-height:1.05;
+      font-size: clamp(2.6rem,10vw,4.6rem);
+      font-weight:900; line-height:1.1;
       background: linear-gradient(135deg,#ff4d8d,#f97316,#ffcc00,#06b6d4,#7c3aed,#ff4d8d);
       background-size:300% 300%;
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text;
       animation:text-shimmer 5s ease infinite, glow-pulse 2.5s ease-in-out infinite;
-      margin-bottom:.4rem; letter-spacing:.02em;
+      margin-bottom:.4rem; letter-spacing:.01em;
       filter: drop-shadow(0 0 18px #ff4d8dcc) drop-shadow(0 0 36px #f97316aa);
     }
     @keyframes glow-pulse {
@@ -258,8 +258,8 @@
 
     .subtitle {
       font-family:'Playfair Display',serif; font-style:italic;
-      font-weight:700; font-size: clamp(1.15rem,4vw,1.55rem);
-      color:#7c3aed; margin-bottom:1.1rem;
+      font-weight:700; font-size: clamp(1.25rem,4.5vw,1.75rem);
+      color:#7c3aed; margin-bottom:1.1rem; line-height:1.55;
       text-shadow: 0 0 16px #7c3aedcc, 0 0 32px #06b6d488;
     }
 
@@ -292,10 +292,12 @@
     }
     .tribute-line:nth-child(1) .dot { background:#ff4d8d; color:#ff4d8d; }
     .tribute-line:nth-child(2) .dot { background:#f97316; color:#f97316; }
+    .tribute-line:nth-child(3) .dot { background:#7c3aed; color:#7c3aed; }
+    .tribute-line:nth-child(4) .dot { background:#06b6d4; color:#06b6d4; }
     .tribute-line span {
       font-family:'Playfair Display',serif; font-style:italic;
-      font-weight:700; font-size: clamp(1.05rem,3.5vw,1.22rem);
-      line-height:1.72; color:#1a0040;
+      font-weight:700; font-size: clamp(1.15rem,4vw,1.38rem);
+      line-height:1.75; color:#1a0040;
       text-shadow: 0 0 8px #7c3aed22;
     }
 
@@ -467,8 +469,8 @@
       <!-- 0. Title at TOP -->
       <span class="card-icon">💐</span>
       <p class="eyebrow">A message straight from the heart</p>
-      <h1>Happy Mother's Day</h1>
-      <p class="subtitle">"The world is beautiful because you are in it."</p>
+      <h1 id="main-title">Happy Mother's Day</h1>
+      <p class="subtitle" id="main-subtitle">"The world is beautiful because you are in it…"</p>
 
       <div class="divider"><span></span>🌸<span></span></div>
 
@@ -491,13 +493,19 @@
       <!-- 2. Name badge -->
       <div class="mom-name-badge" id="mom-name-badge"></div>
 
-      <!-- 4. Two tribute lines -->
+      <!-- 4. Four tribute lines -->
       <div class="tribute">
         <div class="tribute-line"><span class="dot"></span>
           <span>Thank you for always being my mother — the one who never gave up on me, even when I gave up on myself.</span>
         </div>
         <div class="tribute-line"><span class="dot"></span>
           <span>Thank you for raising me with a love so deep it shaped everything I am, and everything I hope to become.</span>
+        </div>
+        <div class="tribute-line"><span class="dot"></span>
+          <span>Thank you for every sacrifice made in silence, every prayer whispered in the dark, and every hand held when I needed it most.</span>
+        </div>
+        <div class="tribute-line"><span class="dot"></span>
+          <span>You are my first home, my greatest teacher, and the most beautiful reason I know what love truly means.</span>
         </div>
       </div>
 
@@ -600,8 +608,18 @@
 
     // Mom name badge
     const badge = document.getElementById('mom-name-badge');
-    if (momName) { badge.textContent = '💐 ' + momName; badge.classList.add('visible'); }
-    else { badge.classList.remove('visible'); }
+    // Update main title & subtitle with mummy's name
+    const mainTitle    = document.getElementById('main-title');
+    const mainSubtitle = document.getElementById('main-subtitle');
+    if (momName) {
+      badge.textContent = '💐 ' + momName; badge.classList.add('visible');
+      mainTitle.textContent    = "Happy Mother's Day to you, " + momName + "!";
+      mainSubtitle.textContent = '"The world is beautiful because you are in it…"';
+    } else {
+      badge.classList.remove('visible');
+      mainTitle.textContent    = "Happy Mother's Day";
+      mainSubtitle.textContent = '"The world is beautiful because you are in it…"';
+    }
 
     // Sender line
     const senderLine        = document.getElementById('sender-line');
@@ -635,6 +653,8 @@
     const lbl = document.getElementById('sender-photo-label');
     if (lbl) lbl.style.display = 'none';
     document.getElementById('mom-name-badge').classList.remove('visible');
+    document.getElementById('main-title').textContent    = "Happy Mother's Day";
+    document.getElementById('main-subtitle').textContent = '"The world is beautiful because you are in it…"';
     document.getElementById('sender-line').classList.remove('visible');
     document.getElementById('msg-display').classList.remove('visible');
   });
@@ -742,10 +762,11 @@
       ctx.fillText('A MESSAGE STRAIGHT FROM THE HEART',cx,y+16);
       ctx.shadowBlur=0; y+=28;
 
-      // ── 5. Main title ── (TOP, very large)
-      const titleFont='bold 80px "Playfair Display",serif';
-      const titleLines=wrapText("Happy Mother's Day",cW,titleFont);
-      const titleLineH=92;
+      // ── 5. Main title ── (TOP, very large, dynamic)
+      const titleText = document.getElementById('main-title').textContent;
+      const titleFont='bold 76px "Playfair Display",serif';
+      const titleLines=wrapText(titleText,cW,titleFont);
+      const titleLineH=90;
       const titleH=titleLines.length*titleLineH;
       const h1G=ctx.createLinearGradient(cX,y,cX+cW,y+titleH);
       ['#ff4d8d','#f97316','#ffcc00','#06b6d4','#7c3aed'].forEach((cl,i,a)=>h1G.addColorStop(i/(a.length-1),cl));
@@ -756,8 +777,9 @@
       ctx.shadowBlur=0; y+=titleH+6;
 
       // ── 6. Subtitle ──
-      const subFont='bold italic 26px "Playfair Display",serif';
-      const subLines=wrapText('"The world is beautiful because you are in it."',cW,subFont);
+      const subText = document.getElementById('main-subtitle').textContent;
+      const subFont='bold italic 28px "Playfair Display",serif';
+      const subLines=wrapText(subText,cW,subFont);
       const subLineH=36;
       ctx.font=subFont; ctx.fillStyle='#7c3aed'; ctx.textAlign='center';
       ctx.shadowColor='#7c3aed'; ctx.shadowBlur=18;
@@ -842,16 +864,18 @@
       }
 
       // ── 10. Two tribute lines ──
-      const tFont='italic bold 22px "Playfair Display",serif';
-      const tLineH=32;
-      const tDotR=6;
-      const tTextX=cX+tDotR*2+10;
-      const tTextW=cW-tDotR*2-12;
+      const tFont='italic bold 24px "Playfair Display",serif';
+      const tLineH=34;
+      const tDotR=7;
+      const tTextX=cX+tDotR*2+12;
+      const tTextW=cW-tDotR*2-14;
       const tributeLines=[
         'Thank you for always being my mother — the one who never gave up on me, even when I gave up on myself.',
         'Thank you for raising me with a love so deep it shaped everything I am, and everything I hope to become.',
+        'Thank you for every sacrifice made in silence, every prayer whispered in the dark, and every hand held when I needed it most.',
+        'You are my first home, my greatest teacher, and the most beautiful reason I know what love truly means.',
       ];
-      const dotColors=['#ff4d8d','#f97316'];
+      const dotColors=['#ff4d8d','#f97316','#7c3aed','#06b6d4'];
 
       // Measure tribute box height
       let tribH=16;
